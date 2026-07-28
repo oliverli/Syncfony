@@ -1,4 +1,5 @@
 # Syncfony
+
 A peer-to-peer real time music jamming web app built upon WebRTC.
 
 Allows multiple people to play music on different instruments at the same time over an internet connection.

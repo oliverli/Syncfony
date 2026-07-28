@@ -1,422 +1,426 @@
-*{
-    font-family: 'Lato', sans-serif;
-    box-sizing: border-box;
+* {
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: #eee;
-    height: 100%;
-    overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  background: #eee;
+  height: 100%;
+  overflow-y: hidden;
 }
 
 .header {
-    background: #2196F3;
-    color: #eee;
-    padding: 1em;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+  background: #2196f3;
+  color: #eee;
+  padding: 1em;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 200;
-    font-size: 1.5em;
+  font-family: "Raleway", sans-serif;
+  font-weight: 200;
+  font-size: 1.5em;
 }
 
-.room, .users {
-    float: right;
-    line-height: 1.7em;
-    margin: 0 0.5em;
+.room,
+.users {
+  float: right;
+  line-height: 1.7em;
+  margin: 0 0.5em;
 }
 
 .room input {
-    border: 0px;
-    font-size: 1em;
-    background: #1976D2;
-    color: inherit;
-    padding: 0.3em;
-    margin-left: 0.2em;
+  border: 0px;
+  font-size: 1em;
+  background: #1976d2;
+  color: inherit;
+  padding: 0.3em;
+  margin-left: 0.2em;
 }
 
 .exit {
-    line-height: 1.7em;
-    float: right;
+  line-height: 1.7em;
+  float: right;
 }
 
-.exit a{
-    color: inherit;
-    text-decoration: none;
+.exit a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .card {
-    display: block;
-    background: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
-    padding: 1em;
+  display: block;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  padding: 1em;
 }
 
 .middle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 300px;
-    padding: 1em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 300px;
+  padding: 1em;
 }
 
 .card .logo {
-    color: #2196F3;
+  color: #2196f3;
 }
 
 .divider {
-    height: 1px;
-    background: #B6B6B6;
-    margin: 10px 0;
+  height: 1px;
+  background: #b6b6b6;
+  margin: 10px 0;
 }
 
 .joinroom {
-    margin-bottom: 1em;
-    line-height: 2em;
+  margin-bottom: 1em;
+  line-height: 2em;
 }
 
 .joinroom input {
-    font-size: 2em;
-    width: 100%;
-    background: #eee;
-    border: 0px;
-    outline: none;
-    transition: 0.2s;
+  font-size: 2em;
+  width: 100%;
+  background: #eee;
+  border: 0px;
+  outline: none;
+  transition: 0.2s;
 }
 
 .joinroom input:focus {
-    background: #f5f5f5;
+  background: #f5f5f5;
 }
 
 .button {
-    background: #2196F3;
-    border: 0px;
-    border-radius: 5px;
-    color: #fff;
-    padding: 1em 0.8em;
-    text-transform: uppercase;
-    transition: 0.2s;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
-    cursor: pointer;
-    outline: none;
-    display: inline-block;
+  background: #2196f3;
+  border: 0px;
+  border-radius: 5px;
+  color: #fff;
+  padding: 1em 0.8em;
+  text-transform: uppercase;
+  transition: 0.2s;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
 }
 
 .button:hover {
-    background: #1976D2;
+  background: #1976d2;
 }
 
 .button:active {
-    transform: translateY(2px);
-    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  transform: translateY(2px);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 .button.green {
-    background: #4CAF50;
+  background: #4caf50;
 }
 
-
 .button.green:hover {
-    background: #388E3C;
+  background: #388e3c;
 }
 
 .button.red {
-    background: #F44336;
+  background: #f44336;
 }
 
-
 .button.red:hover {
-    background: #D32F2F;
+  background: #d32f2f;
 }
 
 .button.purple {
-    background: #9C27B0;
+  background: #9c27b0;
 }
 
-
 .button.purple:hover {
-    background: #7B1FA2;
+  background: #7b1fa2;
 }
 
 .button.white {
-	background: #fff;
-	color: #222;
+  background: #fff;
+  color: #222;
 }
 
 .button.white:hover {
-	background: #eee;
+  background: #eee;
 }
 
 .button.black {
-	background: #333;
+  background: #333;
 }
 
 .button.black:hover {
-	background: #222;
+  background: #222;
 }
 
 .button.teal {
-	background: #009688;
+  background: #009688;
 }
 
 .button.teal:hover {
-	background: #00796B;
+  background: #00796b;
 }
 
 .button.indigo {
-	background: #3F51B5;
+  background: #3f51b5;
 }
 
 .button.indigo:hover {
-	background: #303F9F;
+  background: #303f9f;
 }
 
 .button.circle {
-	width: 4em;
-	height: 4em;
-	border-radius: 2em;
-	line-height: 2em;
+  width: 4em;
+  height: 4em;
+  border-radius: 2em;
+  line-height: 2em;
 }
 
 .button.selected:before {
-    position: absolute;
-    left: -1em;
-    top: 0em;
-    content: ' ';
-    width: 3px;
-    height: 4em;
-    background: #2196F3;
+  position: absolute;
+  left: -1em;
+  top: 0em;
+  content: " ";
+  width: 3px;
+  height: 4em;
+  background: #2196f3;
 }
 
-main{
-    height: 100%;
-    width: calc(100% - 4em);
-    float: right;
-    padding: 1em;
+main {
+  height: 100%;
+  width: calc(100% - 4em);
+  float: right;
+  padding: 1em;
 }
 
 .instruments {
-	position: absolute;
-	left: 1em;
-	top: 50%;
-	transform: translateY(-50%);
+  position: absolute;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.instruments .button{
-	display: block;
-	margin-bottom: 1em;
-	position: relative;
-	line-height: 3em;
+.instruments .button {
+  display: block;
+  margin-bottom: 1em;
+  position: relative;
+  line-height: 3em;
 }
 
-.instruments .button>span {
-	opacity: 0;
-	z-index: -1;
-	transition: 0.2s;
-	position: absolute;
-	left: 4.5em;
-	top: 0.5em;
-	display: inline-block;
-	white-space: nowrap;
-	background: #212121;
-	padding: 1em;
-	border-radius: 2em;
-	line-height: 1em;
-	text-transform: none;
+.instruments .button > span {
+  opacity: 0;
+  z-index: -1;
+  transition: 0.2s;
+  position: absolute;
+  left: 4.5em;
+  top: 0.5em;
+  display: inline-block;
+  white-space: nowrap;
+  background: #212121;
+  padding: 1em;
+  border-radius: 2em;
+  line-height: 1em;
+  text-transform: none;
 }
 
-.instruments .button img{
-    height: 1.5em;
-    width: 1.5em;
+.instruments .button img {
+  height: 1.5em;
+  width: 1.5em;
 }
 
-.instruments .button:hover>span {
-	opacity: 1;
+.instruments .button:hover > span {
+  opacity: 1;
 }
 
 .piano {
-    position: absolute;
-    bottom: 1.5em;
-    left: 4em;
-    right: 0;
-    margin: auto;
-    height: 14em;
-    width: 44em;
-    max-height: 50%;
-    transition: 0.5s;
+  position: absolute;
+  bottom: 1.5em;
+  left: 4em;
+  right: 0;
+  margin: auto;
+  height: 14em;
+  width: 44em;
+  max-height: 50%;
+  transition: 0.5s;
 }
 
-.button.key, .space.key, .pitch.card {
-    width: 9.0909%;
-    position: relative;
-    white-space: nowrap;
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Likely future */
-    line-height: 1.5em;
+.button.key,
+.space.key,
+.pitch.card {
+  width: 9.0909%;
+  position: relative;
+  white-space: nowrap;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+  line-height: 1.5em;
 }
 
-.button.key.white, .pitch.card {
-    height: 100%;
-    margin-left:-9.0909%;
+.button.key.white,
+.pitch.card {
+  height: 100%;
+  margin-left: -9.0909%;
 }
 
-
-.button.key.black, .space.key {
-    height: 70%;
-    left: -4.5%;
-    top: -30%;
-    z-index: 2;
+.button.key.black,
+.space.key {
+  height: 70%;
+  left: -4.5%;
+  top: -30%;
+  z-index: 2;
 }
 
-.button.key > span , .button.drum > span {
-    position: absolute;
-    bottom: 0.7em;
+.button.key > span,
+.button.drum > span {
+  position: absolute;
+  bottom: 0.7em;
 }
 
-.button.key.white kbd, .button.drum kbd {
-    background: #ddd;
-    font-family: monospace;
-    padding: 0.5em;
+.button.key.white kbd,
+.button.drum kbd {
+  background: #ddd;
+  font-family: monospace;
+  padding: 0.5em;
 }
 
 .button.key.black kbd {
-    background: #555;
-    font-family: monospace;
-    padding: 0.5em;
+  background: #555;
+  font-family: monospace;
+  padding: 0.5em;
 }
 
-.space.key, .pitch.card {
-    display: inline-block;
+.space.key,
+.pitch.card {
+  display: inline-block;
 }
 
 .pitch.card {
-    background: #2196F3;
-    position: relative;
-    text-align: center;
-    color: #eee;
+  background: #2196f3;
+  position: relative;
+  text-align: center;
+  color: #eee;
 }
 
 .pitch.card > div {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .pitch.card .up {
-    top: 1em;
-    cursor: pointer;
-    line-height: 1.5em;
+  top: 1em;
+  cursor: pointer;
+  line-height: 1.5em;
 }
 
 .pitch.card .mid {
-    top: 50%;
-    transform: translate(-50%,-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .pitch.card .down {
-    bottom: 1em;
-    cursor: pointer;
-    line-height: 1.5em;
+  bottom: 1em;
+  cursor: pointer;
+  line-height: 1.5em;
 }
 
 .pitch.card #pitch {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 #usercontainer .logo {
-    color: #727272;
+  color: #727272;
 }
 
 #usercontainer .card.user {
-    display: inline-block;
-    width: 10%;
-    text-align: center;
-    margin: 3px;
+  display: inline-block;
+  width: 10%;
+  text-align: center;
+  margin: 3px;
 }
 
-.card h2{
-    font-weight: 400;
-    margin: 0;
-    font-size: 1.2em;
+.card h2 {
+  font-weight: 400;
+  margin: 0;
+  font-size: 1.2em;
 }
 
-.card .indicator{
-    height: 3em;
-    width: 3em;
-    background: #727272;
-    border-radius: 2em;
-    margin: 1em auto;
-    transition: 0.1s;
+.card .indicator {
+  height: 3em;
+  width: 3em;
+  background: #727272;
+  border-radius: 2em;
+  margin: 1em auto;
+  transition: 0.1s;
 }
 
 .pitch.card kbd {
-    font-family: monospace;
-    background: #1976D2;
-    padding: 0.5em;
+  font-family: monospace;
+  background: #1976d2;
+  padding: 0.5em;
 }
 
-.drums{
-    position: absolute;
-    bottom: 1.5em;
-    left: 4em;
-    right: 0;
-    margin: auto;
-    height: 14em;
-    width: 44em;
-    max-height: 50%;
-    white-space: nowrap;
-    transition: 0.5s;
+.drums {
+  position: absolute;
+  bottom: 1.5em;
+  left: 4em;
+  right: 0;
+  margin: auto;
+  height: 14em;
+  width: 44em;
+  max-height: 50%;
+  white-space: nowrap;
+  transition: 0.5s;
 }
 
 .button.drum {
-    height: 100%;
-    width: 20%;
-    line-height: 1.5em;
+  height: 100%;
+  width: 20%;
+  line-height: 1.5em;
 }
 
 .switch {
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    font-size: 13.33px;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  font-size: 13.33px;
 }
 
 .switch .button {
-    position: relative;
+  position: relative;
 }
 
 .switch .button img {
-    height: 3em;
-    width: 3em;
+  height: 3em;
+  width: 3em;
 }
 
-.switch .button>span {
-	opacity: 0;
-	z-index: -1;
-	transition: 0.2s;
-	position: absolute;
-	width: 7em;
-	left: -2em;
-	top: -3.2em;
-	display: inline-block;
-	background: #212121;
-	padding: 1em;
-	border-radius: 10em;
-	line-height: 1em;
-	text-transform: none;
-	white-space: nowrap;
-	text-align: center;
+.switch .button > span {
+  opacity: 0;
+  z-index: -1;
+  transition: 0.2s;
+  position: absolute;
+  width: 7em;
+  left: -2em;
+  top: -3.2em;
+  display: inline-block;
+  background: #212121;
+  padding: 1em;
+  border-radius: 10em;
+  line-height: 1em;
+  text-transform: none;
+  white-space: nowrap;
+  text-align: center;
 }
 
-.switch .button:hover>span {
-    opacity: 1;
+.switch .button:hover > span {
+  opacity: 1;
 }

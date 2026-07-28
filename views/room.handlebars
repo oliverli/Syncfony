@@ -1,83 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Syncfonia</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="/peer.min.js"></script>
-	<script src="/jquery-2.2.0.min.js"></script>
-	<script src="/audiosynth.js"></script>
-	<script src="/connect.js"></script>
-	<script src="/sound.js"></script>
-	<link rel="stylesheet" type="text/css" href="../style.css">
-	<link rel="stylesheet" href="/font-awesome.min.css">
-	<link href='/font-google.css' rel='stylesheet' type='text/css'>
+    <title>Syncfonia</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="peerjs-key" content="{{PEERJS_KEY}}">
+    <meta name="csrf-token" content="{{csrfToken}}">
+    <script src="/peer.min.js"></script>
+    <script src="/jquery-2.2.0.min.js"></script>
+    <script src="/audiosynth.js"></script>
+    <script src="/connect.js"></script>
+    <script src="/sound.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="/font-awesome.min.css">
+    <link href="/font-google.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<audio id="abass"><source src="/bass.mp3" type="audio/mpeg"></audio>
-	<audio id="acymbals"><source src="/cymbals.mp3" type="audio/mpeg"></audio>
-	<audio id="ahihat"><source src="/hihat.mp3" type="audio/mpeg"></audio>
-	<audio id="asnare"><source src="/snare.mp3" type="audio/mpeg"></audio>
-	<audio id="atom"><source src="/tom.mp3" type="audio/mpeg"></audio>
-	<header class="header">
-		<span class="logo">SYNCFONIA</span>
-		<span class="exit"><a href="/" onclick="exitHandler()">Exit</a></span>
-		<span class="users"><span id="userCount"></span> Users in this Room</span>
-		<span class="room">Room # <input type="text" readonly id="roomIDfield" name="roomIDfield" size="10"></span>
-		<span class="room">Your Nickname <input type="text" readonly id="yourNickname" name="yourNickname" size="10"></span>
-	</header>
-	<main>
-		<div class="instruments">
-			<button class="green circle button selected" id="piano" onclick="switchInstrument(this)"><img src="/piano.png"><span>Piano [z]</span></button>
-			<button class="circle button" id="organ" onclick="switchInstrument(this)"><img src="/organ.png"><span>Organ [x]</span></button>
-			<button class="red circle button" id="acoustic" onclick="switchInstrument(this)"><img src="/guitar.png"><span>Acoustic Guitar [c]</span></button>
-			<button class="purple circle button" id="edm" onclick="switchInstrument(this)"><img src="/edm.png"><span>EDM [v]</span></button>
-		</div>
-		<div id="usercontainer">
-			<div class="logo">PEOPLE IN THIS ROOM</div>
-		</div>
-		<div class="piano" id="keyboard">
-			<div class="white key button" onclick="simKey(this.id)" id="113"><span><kbd>Q</kbd></span></div>
-			<div class="black key button" onclick="simKey(this.id)" id="50"><span><kbd>2</kbd></span></div>
-			<div class="white key button" onclick="simKey(this.id)" id="119"><span><kbd>W</kbd></span></div>
-			<div class="black key button" onclick="simKey(this.id)" id="51"><span><kbd>3</kbd></span></div>
-			<div class="white key button" onclick="simKey(this.id)" id="101"><span><kbd>E</kbd></span></div>
-			<div class="key space"></div>
-			<div class="white key button" onclick="simKey(this.id)" id="114"><span><br><kbd>R</kbd></span></div>
-			<div class="black key button" onclick="simKey(this.id)" id="53"><span><br><kbd>5</kbd></span></div>
-			<div class="white key button" onclick="simKey(this.id)" id="116"><span><br><kbd>T</kbd></span></div>
-			<div class="black key button" onclick="simKey(this.id)" id="54"><span><br><kbd>6</kbd></span></div>
-			<div class="white key button" onclick="simKey(this.id)" id="121"><span><br><kbd>Y</kbd></span></div>
-			<div class="black key button" onclick="simKey(this.id)" id="55"><span><br><kbd>7</kbd></span></div>
-			<div class="white key button" onclick="simKey(this.id)" id="117"><span><br><kbd>U</kbd></span></div>
-			<div class="key space"></div>
-			<div class="white key button" onclick="simKey(this.id)" id="105"><span><br><kbd>I</kbd></span></div>
-			<div class="black key button" onclick="simKey(this.id)" id="57"><span><br><kbd>9</kbd></span></div>
-			<div class="white key button" onclick="simKey(this.id)" id="111"><span><br><kbd>O</kbd></span></div>
-			<div class="black key button" onclick="simKey(this.id)" id="48"><span><br><kbd>0</kbd></span></div>
-			<div class="white key button" onclick="simKey(this.id)" id="112"><span><br><kbd>P</kbd></span></div>
-			<div class="key space"></div>
-			<div class="pitch card">
-				<div class="up" onclick="pitchy(1)">&uarr;<br><kbd>[</kbd></div>
-				<div class="mid">
-					<div>Octave</div>
-					<div id="pitch">4</div>
-				</div>
-				<div class="down" onclick="pitchy(0)"><kbd>]</kbd><br>&darr;</div>
-			</div>
-		</div>
-		<div class="drums" id="drum">
-			<div class="white drum button" onclick="simKey(this.id)" id="97"><span>Tom<br><kbd>A</kbd></span></div>
-			<div class="white drum button" onclick="simKey(this.id)" id="115"><span>Bass<br><kbd>S</kbd></span></div>
-			<div class="white drum button" onclick="simKey(this.id)" id="100"><span>Snare<br><kbd>D/J</kbd></span></div>
-			<div class="white drum button" onclick="simKey(this.id)" id="107"><span>Hi-Hat<br><kbd>K</kbd></span></div>
-			<div class="white drum button" onclick="simKey(this.id)" id="108"><span>Cymbals<br><kbd>L</kbd></span></div>
-		</div>
-		<div class="switch">
-			<div class="indigo button" onclick="openInstrument('keyboard')"><img src="/piano.png"><span>Keyboard</span></div>
-			<div class="teal button" onclick="openInstrument('drum')"><img src="/drum.png"><span>Drum Pad</span></div>
-		</div>
-	</main>
+    <audio id="abass"><source src="/bass.mp3" type="audio/mpeg"></audio>
+    <audio id="acymbals"><source src="/cymbals.mp3" type="audio/mpeg"></audio>
+    <audio id="ahihat"><source src="/hihat.mp3" type="audio/mpeg"></audio>
+    <audio id="asnare"><source src="/snare.mp3" type="audio/mpeg"></audio>
+    <audio id="atom"><source src="/tom.mp3" type="audio/mpeg"></audio>
+    <header class="header">
+        <span class="logo">SYNCFONIA</span>
+        <span class="exit"><a href="/" onclick="exitHandler()">Exit</a></span>
+        <span class="users"><span id="userCount"></span> Users in this Room</span>
+        <span class="room">Room # <input type="text" readonly id="roomIDfield" name="roomIDfield" size="10"></span>
+        <span class="room">Your Nickname <input type="text" readonly id="yourNickname" name="yourNickname" size="10"></span>
+    </header>
+    <main>
+        <div class="instruments">
+            <button class="green circle button selected" id="piano" onclick="switchInstrument(this)"><img src="/piano.png"><span>Piano [z]</span></button>
+            <button class="circle button" id="organ" onclick="switchInstrument(this)"><img src="/organ.png"><span>Organ [x]</span></button>
+            <button class="red circle button" id="acoustic" onclick="switchInstrument(this)"><img src="/guitar.png"><span>Acoustic Guitar [c]</span></button>
+            <button class="purple circle button" id="edm" onclick="switchInstrument(this)"><img src="/edm.png"><span>EDM [v]</span></button>
+        </div>
+        <div id="usercontainer">
+            <div class="logo">PEOPLE IN THIS ROOM</div>
+        </div>
+        <div class="piano" id="keyboard">
+            <div class="white key button" onclick="simKey(this.id)" id="113"><span><kbd>Q</kbd></span></div>
+            <div class="black key button" onclick="simKey(this.id)" id="50"><span><kbd>2</kbd></span></div>
+            <div class="white key button" onclick="simKey(this.id)" id="119"><span><kbd>W</kbd></span></div>
+            <div class="black key button" onclick="simKey(this.id)" id="51"><span><kbd>3</kbd></span></div>
+            <div class="white key button" onclick="simKey(this.id)" id="101"><span><kbd>E</kbd></span></div>
+            <div class="key space"></div>
+            <div class="white key button" onclick="simKey(this.id)" id="114"><span><br><kbd>R</kbd></span></div>
+            <div class="black key button" onclick="simKey(this.id)" id="53"><span><br><kbd>5</kbd></span></div>
+            <div class="white key button" onclick="simKey(this.id)" id="116"><span><br><kbd>T</kbd></span></div>
+            <div class="black key button" onclick="simKey(this.id)" id="54"><span><br><kbd>6</kbd></span></div>
+            <div class="white key button" onclick="simKey(this.id)" id="121"><span><br><kbd>Y</kbd></span></div>
+            <div class="black key button" onclick="simKey(this.id)" id="55"><span><br><kbd>7</kbd></span></div>
+            <div class="white key button" onclick="simKey(this.id)" id="117"><span><br><kbd>U</kbd></span></div>
+            <div class="key space"></div>
+            <div class="white key button" onclick="simKey(this.id)" id="105"><span><br><kbd>I</kbd></span></div>
+            <div class="black key button" onclick="simKey(this.id)" id="57"><span><br><kbd>9</kbd></span></div>
+            <div class="white key button" onclick="simKey(this.id)" id="111"><span><br><kbd>O</kbd></span></div>
+            <div class="black key button" onclick="simKey(this.id)" id="48"><span><br><kbd>0</kbd></span></div>
+            <div class="white key button" onclick="simKey(this.id)" id="112"><span><br><kbd>P</kbd></span></div>
+            <div class="key space"></div>
+            <div class="pitch card">
+                <div class="up" onclick="pitchy(1)">&uarr;<br><kbd>[</kbd></div>
+                <div class="mid">
+                    <div>Octave</div>
+                    <div id="pitch">4</div>
+                </div>
+                <div class="down" onclick="pitchy(0)"><kbd>]</kbd><br>&darr;</div>
+            </div>
+        </div>
+        <div class="drums" id="drum">
+            <div class="white drum button" onclick="simKey(this.id)" id="97"><span>Tom<br><kbd>A</kbd></span></div>
+            <div class="white drum button" onclick="simKey(this.id)" id="115"><span>Bass<br><kbd>S</kbd></span></div>
+            <div class="white drum button" onclick="simKey(this.id)" id="100"><span>Snare<br><kbd>D/J</kbd></span></div>
+            <div class="white drum button" onclick="simKey(this.id)" id="107"><span>Hi-Hat<br><kbd>K</kbd></span></div>
+            <div class="white drum button" onclick="simKey(this.id)" id="108"><span>Cymbals<br><kbd>L</kbd></span></div>
+        </div>
+        <div class="switch">
+            <div class="indigo button" onclick="openInstrument('keyboard')"><img src="/piano.png"><span>Keyboard</span></div>
+            <div class="teal button" onclick="openInstrument('drum')"><img src="/drum.png"><span>Drum Pad</span></div>
+        </div>
+    </main>
 
 </body>
 </html>

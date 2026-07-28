@@ -1,23 +1,18 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-/* Rooms */
 router.use("/room", require("./rooms.js"));
 
-router.get("/", function(req, res) {
-    res.render("index", {
-        layout: false
-    });
+router.get("/", (req, res) => {
+  res.render("index", {
+    layout: false,
+    PEERJS_KEY: process.env.PEERJS_KEY,
+    csrfToken: res.locals.csrfToken,
+  });
 });
 
-/* 404 & 500 */
-router.use(function(req, res) {
-    res.status(404).send("404: Not Found");
-});
-
-router.use(function(err, req, res) {
-    console.error(err.stack);
-    res.status(500).send("500: Internal Server Error");
+router.use((req, res) => {
+  res.status(404).send("404: Not Found");
 });
 
 module.exports = router;

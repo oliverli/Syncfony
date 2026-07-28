@@ -1,32 +1,41 @@
 {
   "name": "syncfony",
   "version": "1.0.0",
-  "description": "A centralized messaging system",
+  "description": "A peer-to-peer real time music jamming web app built upon WebRTC.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yicheng340/Syncfony.git"
   },
-  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yicheng340/Syncfony/issues"
-  },
-  "homepage": "https://github.com/yicheng340/Syncfony#readme",
   "dependencies": {
-    "bluebird": "^3.5.1",
-    "body-parser": "^1.18.3",
-    "compression": "^1.7.3",
-    "console-stamp": "^0.2.0",
-    "dateformat": "^3.0.3",
-    "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
-    "gen-id": "^0.1.1",
-    "morgan": "^1.7.0",
-    "nedb": "^1.8.0",
-    "q": "^1.4.1"
+    "better-sqlite3": "^13.0.1",
+    "better-sqlite3-session-store": "^0.1.0",
+    "compression": "^1.8.1",
+    "csrf-sync": "^4.0.3",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "express-handlebars": "^9.0.1",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "morgan": "^1.11.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "eslint": "^10.8.0",
+    "prettier": "^3.5.3"
   }
 }

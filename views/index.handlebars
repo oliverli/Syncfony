@@ -4,34 +4,38 @@
     <title>Syncfonia</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <meta name="peerjs-key" content="{{PEERJS_KEY}}">
+    <meta name="csrf-token" content="{{csrfToken}}">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="/peer.min.js"></script>
-	<script src="/jquery-2.2.0.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../style.css">
-	<link rel="stylesheet" href="/font-awesome.min.css">
-	<link href='/font-google.css' rel='stylesheet' type='text/css'>
+    <script src="/jquery-2.2.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="/font-awesome.min.css">
+    <link href="/font-google.css" rel="stylesheet" type="text/css">
     <script>
+        function getCsrfToken() { return $("meta[name='csrf-token']").attr("content"); }
         $(document).ready(function() {
             var peer;
             if(sessionStorage.exited)
             {
                 sessionStorage.removeItem("exited");
                 sessionStorage.removeItem("roomID");
-            	sessionStorage.removeItem("peerID");
-            	sessionStorage.removeItem("tempClientStore");
-            	sessionStorage.removeItem("nickname");
+                sessionStorage.removeItem("peerID");
+                sessionStorage.removeItem("tempClientStore");
+                sessionStorage.removeItem("nickname");
             }
             if(sessionStorage.roomID && !sessionStorage.exited)
             {
-            	window.location.replace("./room/");
+                window.location.replace("./room/");
             }
+            var peerKey = $("meta[name='peerjs-key']").attr("content");
             if(sessionStorage.peerID)
             {
-                var peer = new Peer(sessionStorage.peerID, {key: 'cnkznl0wfzf9wwmi'});
+                var peer = new Peer(sessionStorage.peerID, {key: peerKey});
             }
             else
             {
-                var peer = new Peer({key: 'cnkznl0wfzf9wwmi'});
+                var peer = new Peer({key: peerKey});
             }
             peer.on('open', function(id) {
                 sessionStorage.peerID = id;
@@ -43,7 +47,7 @@
             sessionStorage.nickname = $("#nickname").val();
             if(sessionStorage.roomID) return false;
             var data = { "client": sessionStorage.peerID, "nickname": sessionStorage.nickname };
-            $.ajax({url: "/room/create", data: data, method: "POST", success: function(result){
+            $.ajax({url: "/room/create", data: data, method: "POST", headers: {"X-CSRF-Token": getCsrfToken()}, success: function(result){
                 sessionStorage.roomID = result.room;
                 window.location.replace("./room/");
             }});
@@ -54,10 +58,9 @@
             sessionStorage.nickname = $("#nickname").val();
             if(sessionStorage.roomID) return false;
             var data = { "room": $('#joinRoomID').val(), "client": sessionStorage.peerID, "nickname": sessionStorage.nickname };
-            $.ajax({url: "/room/join", data: data, method: "POST", success: function(result){
-            	sessionStorage.roomID = $('#joinRoomID').val();
+            $.ajax({url: "/room/join", data: data, method: "POST", headers: {"X-CSRF-Token": getCsrfToken()}, success: function(result){
+                sessionStorage.roomID = $('#joinRoomID').val();
                 sessionStorage.tempClientStore = JSON.stringify(result.clients);
-                //console.log(result);
                 window.location.replace("./room/");
             }});
         }

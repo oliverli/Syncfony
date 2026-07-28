@@ -1,0 +1,10 @@
+node_modules/
+public/*.min.js
+public/audiosynth.js
+public/font-awesome.min.css
+public/font-google.css
+views/
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
