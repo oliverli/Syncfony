@@ -1,37 +1,37 @@
+"use strict";
+
 const js = require("@eslint/js");
+const globals = require("globals");
 
 module.exports = [
   js.configs.recommended,
   {
-    ignores: ["node_modules/", "public/*.min.js", "public/audiosynth.js", "database/"],
+    ignores: ["node_modules/**", "database/**", "public/*.min.js", "public/audiosynth.js"],
   },
   {
-    files: ["**/*.js"],
     languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "commonjs",
       globals: {
-        // Node.js globals for server code
-        require: "readonly",
-        module: "readonly",
-        exports: "readonly",
-        process: "readonly",
-        console: "readonly",
-        __dirname: "readonly",
-        setTimeout: "readonly",
-        setInterval: "readonly",
+        ...globals.node,
       },
     },
     rules: {
-      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
+      "no-console": "off",
+      eqeqeq: "error",
+      "no-var": "error",
+      "prefer-const": "error",
+      "no-throw-literal": "error",
     },
   },
   {
     files: ["public/**/*.js"],
     languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "script",
       globals: {
-        // Browser globals
-        document: "readonly",
-        window: "readonly",
-        sessionStorage: "readonly",
+        ...globals.browser,
         $: "readonly",
         Peer: "readonly",
         playLocal: "readonly",

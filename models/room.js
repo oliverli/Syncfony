@@ -15,9 +15,18 @@ function saveRoom(room) {
   db.prepare("UPDATE rooms SET users = ? WHERE id = ?").run(JSON.stringify(room.users), room.id);
 }
 
+function sanitizeName(value) {
+  return String(value)
+    .split("")
+    .filter((char) => char.charCodeAt(0) > 31 && char.charCodeAt(0) !== 127)
+    .join("")
+    .trim()
+    .slice(0, 24);
+}
+
 exports.create = function (peerId, nickname) {
   const id = generateId();
-  const users = JSON.stringify([{ id: peerId, nickname }]);
+  const users = JSON.stringify([{ id: peerId, nickname: sanitizeName(nickname) }]);
   db.prepare("INSERT INTO rooms (id, users) VALUES (?, ?)").run(id, users);
   return { id };
 };
@@ -45,6 +54,6 @@ exports.join = function (roomId, peerId, nickname) {
   const room = getRoom(roomId);
   if (!room) throw new Error("Room does not exist");
   const present = room.users.some((u) => u.id === peerId);
-  if (!present) room.users.push({ id: peerId, nickname });
+  if (!present) room.users.push({ id: peerId, nickname: sanitizeName(nickname) });
   saveRoom(room);
 };

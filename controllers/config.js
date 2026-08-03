@@ -31,6 +31,7 @@ const authLimiter = rateLimit({
 module.exports = function (app) {
   console.info(`[${dateFormat.format(new Date())}] Listening on port ${process.env.PORT || 5000}.`);
 
+  app.set("trust proxy", 1);
   app.use(helmet());
   app.use(compression());
   app.use(express.static("public"));
@@ -52,7 +53,7 @@ module.exports = function (app) {
 
   app.use(csrfSynchronisedProtection);
 
-  const hbs = exphbs.create({ defaultLayout: "default" });
+  const hbs = exphbs.create({});
 
   app.enable("case sensitive routing");
   app.enable("strict routing");

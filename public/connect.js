@@ -1,6 +1,6 @@
-var peers = [],
-  peer;
-var retardedUserCount = 1;
+let peer;
+peers = [];
+let userCount = 1;
 
 function dataReceiver(data) {
   if (!data.isDC) {
@@ -23,21 +23,21 @@ function ghettoQuitHandler() {
       removeUser(item.nickname);
       item.connection.isClosed = true;
       console.log(item.nickname + " checked and is dead and has been removed.");
-      retardedUserCount--;
+      userCount--;
     } else if (item.connection.open && item.connection.isClosed) {
       addUser(item.nickname);
       item.connection.isClosed = false;
       console.log(
         item.nickname + " is actually alive and has been revived. welcome to the afterlife.",
       );
-      retardedUserCount++;
+      userCount++;
     } else if (!item.connection.isClosed) console.log(item.nickname + " checked and is alive.");
   });
-  $("#userCount").html(retardedUserCount.toString());
+  $("#userCount").html(userCount.toString());
 }
 
 $(document).ready(function () {
-  var peerKey = $("meta[name='peerjs-key']").attr("content");
+  const peerKey = $("meta[name='peerjs-key']").attr("content");
 
   if (sessionStorage.peerID) {
     peer = new Peer(sessionStorage.peerID, { key: peerKey });
@@ -54,29 +54,29 @@ $(document).ready(function () {
     console.log("My nickname is: " + sessionStorage.nickname);
     $("#yourNickname").val(sessionStorage.nickname);
     if (sessionStorage.tempClientStore) {
-      var result = JSON.parse(JSON.parse(sessionStorage.tempClientStore));
-      for (var index = 0; index < result.length; index++) {
+      const result = JSON.parse(sessionStorage.tempClientStore);
+      for (let index = 0; index < result.length; index++) {
         if (result[index].id !== sessionStorage.peerID) {
           peers.push(new clientPeer(result[index].id, result[index].nickname));
           console.log("Connected to user: " + result[index].nickname);
         }
       }
-      retardedUserCount = peers.length + 1;
+      userCount = peers.length + 1;
       $("#roomIDfield").val(sessionStorage.roomID.toString());
-      $("#userCount").html(retardedUserCount.toString());
+      $("#userCount").html(userCount.toString());
     } else {
       $("#roomIDfield").val(sessionStorage.roomID.toString());
-      retardedUserCount = 1;
-      $("#userCount").html(retardedUserCount.toString());
+      userCount = 1;
+      $("#userCount").html(userCount.toString());
     }
   });
 
   peer.on("connection", function (conn) {
     peers.push(new clientPeer2(conn));
     console.log("Connected to user: " + conn.label);
-    retardedUserCount++;
+    userCount++;
 
-    $("#userCount").html(retardedUserCount.toString());
+    $("#userCount").html(userCount.toString());
   });
   setInterval(ghettoQuitHandler, 2500);
 });
@@ -101,14 +101,13 @@ function clientPeer2(connection) {
   this.isClosed = false;
 }
 
-function getCsrfToken() {
+window.getCsrfToken = function () {
   return $("meta[name='csrf-token']").attr("content");
-}
+};
 
-// eslint-disable-next-line no-unused-vars
-function exitHandler() {
+window.exitHandler = function () {
   sessionStorage.exited = true;
-  var data = { room: sessionStorage.roomID, client: sessionStorage.peerID };
+  const data = { room: sessionStorage.roomID, client: sessionStorage.peerID };
   $.ajax({
     url: "/room/delete",
     data: data,
@@ -123,30 +122,41 @@ function exitHandler() {
   sessionStorage.removeItem("tempClientStore");
   sessionStorage.removeItem("nickname");
   peer.destroy();
-}
+};
 
-function addUser(name) {
-  var n = document.createElement("div");
-  n.classList.add("user");
-  n.classList.add("card");
-  n.id = name;
-  n.innerHTML = "<h2>" + name + "</h2><div class='indicator'></div>";
-  document.getElementById("usercontainer").appendChild(n);
-}
+const userElements = {};
+let userCounter = 0;
+
+window.addUser = function (name) {
+  const el = document.createElement("div");
+  el.classList.add("user");
+  el.classList.add("card");
+  el.id = "user-" + userCounter++;
+  const heading = document.createElement("h2");
+  heading.textContent = name;
+  const indicator = document.createElement("div");
+  indicator.classList.add("indicator");
+  el.appendChild(heading);
+  el.appendChild(indicator);
+  document.getElementById("usercontainer").appendChild(el);
+  userElements[name] = el;
+};
 
 function removeUser(name) {
-  var el = document.getElementById(name);
-  if (el) el.remove();
+  const el = userElements[name];
+  if (!el) return;
+  delete userElements[name];
+  if (el.parentNode) el.parentNode.removeChild(el);
 }
 
 function lightUp(name, instrument) {
-  var color;
-  if (instrument == "piano") color = "#4CAF50";
-  else if (instrument == "organ") color = "#2196F3";
-  else if (instrument == "acoustic") color = "#F44336";
-  else if (instrument == "edm") color = "#9C27B0";
+  let color;
+  if (instrument === "piano") color = "#4CAF50";
+  else if (instrument === "organ") color = "#2196F3";
+  else if (instrument === "acoustic") color = "#F44336";
+  else if (instrument === "edm") color = "#9C27B0";
   else color = "#009688";
-  var el = document.getElementById(name);
+  const el = userElements[name];
   if (!el) return;
   el.children[1].style.background = color;
   setTimeout(function () {

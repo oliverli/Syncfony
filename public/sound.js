@@ -1,14 +1,14 @@
-var pitch = 4,
-  duration = 2,
-  instrument = "piano",
-  osk = "drum";
+let pitch = 4;
+const duration = 2;
+let instrument = "piano";
+let osk = "drum";
 
 document.onkeypress = function (event) {
-  var x = event.which || event.keyCode;
+  let x = event.which || event.keyCode;
   simKey(x);
-  if (x == 106) x = 100;
+  if (x === 106) x = 100;
   console.log(x);
-  var d = $("#" + x);
+  const d = $("#" + x);
   if (d.hasClass("key")) {
     if (d.hasClass("black")) {
       d.css("background", "#222");
@@ -42,7 +42,7 @@ document.onkeypress = function (event) {
   }
 };
 
-function simKey(x) {
+window.simKey = function (x) {
   x = +x;
   switch (x) {
     case 113:
@@ -133,10 +133,10 @@ function simKey(x) {
       drum("cymbals");
       break;
   }
-}
+};
 
-function play(n, p) {
-  var dataPrep = {
+window.play = function (n, p) {
+  const dataPrep = {
     instrument: instrument,
     n: n,
     p: p,
@@ -147,49 +147,49 @@ function play(n, p) {
     conn.connection.send(dataPrep);
   });
   playLocal(n, p, instrument);
-}
+};
 
-function playLocal(n, p, inst2) {
-  var inst = Synth.createInstrument(inst2);
+window.playLocal = function (n, p, inst2) {
+  const inst = Synth.createInstrument(inst2);
   inst.play(n, p, duration);
-}
+};
 
-function switchInstrument(x) {
+window.switchInstrument = function (x) {
   $(".selected").removeClass("selected");
   instrument = x.id;
   $("#" + x.id).addClass("selected");
-}
+};
 
-function pitchy(x) {
+window.pitchy = function (x) {
   if (x && pitch < 8) {
     pitch++;
   } else if (!x && pitch > 2) {
     pitch--;
   }
   document.getElementById("pitch").textContent = pitch;
-}
+};
 
-function openInstrument(x) {
-  if (x != osk) {
+window.openInstrument = function (x) {
+  if (x !== osk) {
     document.getElementById(osk).style.transform = "translateY(50em)";
     document.getElementById(x).style.transform = "";
     osk = x;
   }
-}
+};
 
 function drum(x) {
-  var dataPrep = { instrument: "drum", x: x, nickname: sessionStorage.nickname, isDC: false };
+  const dataPrep = { instrument: "drum", x: x, nickname: sessionStorage.nickname, isDC: false };
   peers.forEach(function (conn) {
     conn.connection.send(dataPrep);
   });
   drumLocal(x);
 }
 
-function drumLocal(x) {
-  var d = document.getElementById("a" + x);
+window.drumLocal = function (x) {
+  const d = document.getElementById("a" + x);
   d.currentTime = 0;
   d.play();
-}
+};
 
 window.onload = function () {
   openInstrument("keyboard");
