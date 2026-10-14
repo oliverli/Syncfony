@@ -123,7 +123,9 @@ window.exitHandler = function () {
   peer.destroy();
 };
 
-const userElements = {};
+// Cards by nickname; two users may share a nickname, so each name maps to a
+// list and removeUser/lightUp act on the first card with that name.
+const userElements = new Map();
 let userCounter = 0;
 
 window.addUser = function (name) {
@@ -138,13 +140,15 @@ window.addUser = function (name) {
   el.appendChild(heading);
   el.appendChild(indicator);
   document.getElementById("usercontainer").appendChild(el);
-  userElements[name] = el;
+  if (!userElements.has(name)) userElements.set(name, []);
+  userElements.get(name).push(el);
 };
 
 function removeUser(name) {
-  const el = userElements[name];
-  if (!el) return;
-  delete userElements[name];
+  const els = userElements.get(name);
+  if (!els) return;
+  const el = els.shift();
+  if (!els.length) userElements.delete(name);
   if (el.parentNode) el.parentNode.removeChild(el);
 }
 
@@ -155,8 +159,9 @@ function lightUp(name, instrument) {
   else if (instrument === "acoustic") color = "#F44336";
   else if (instrument === "edm") color = "#9C27B0";
   else color = "#009688";
-  const el = userElements[name];
-  if (!el) return;
+  const els = userElements.get(name);
+  if (!els) return;
+  const el = els[0];
   el.children[1].style.background = color;
   setTimeout(function () {
     el.children[1].style.background = "";
