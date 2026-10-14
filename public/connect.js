@@ -79,6 +79,7 @@ $(document).ready(function () {
     $("#userCount").html(userCount.toString());
   });
   setInterval(ghettoQuitHandler, 2500);
+  $("#exit").on("click", exitHandler);
 });
 
 function clientPeer(peerID, nickname) {

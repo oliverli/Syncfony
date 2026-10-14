@@ -45,8 +45,6 @@ module.exports = [
         switchInstrument: "readonly",
         pitchy: "readonly",
         openInstrument: "readonly",
-        createRoom: "readonly",
-        joinRoom: "readonly",
         getCsrfToken: "readonly",
       },
     },

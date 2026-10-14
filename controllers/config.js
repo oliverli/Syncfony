@@ -32,7 +32,20 @@ module.exports = function (app) {
   console.info(`[${dateFormat.format(new Date())}] Listening on port ${process.env.PORT || 5000}.`);
 
   app.set("trust proxy", 1);
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          // PeerJS 0.3 signals through the PeerJS cloud server over plain http/ws.
+          "connect-src": ["'self'", "http://0.peerjs.com:9000", "ws://0.peerjs.com:9000"],
+          // audiosynth.js plays its generated notes from blob: URLs.
+          "media-src": ["'self'", "blob:"],
+          // Upgrading would rewrite the PeerJS URLs to https/wss on port 9000.
+          "upgrade-insecure-requests": null,
+        },
+      },
+    }),
+  );
   app.use(compression());
   app.use(express.static("public"));
   app.use(
