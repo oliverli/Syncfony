@@ -191,6 +191,24 @@ window.drumLocal = function (x) {
   d.play();
 };
 
+$(document).ready(function () {
+  $(".key.button, .drum.button").on("click", function () {
+    simKey(this.id);
+  });
+  $(".instruments .button").on("click", function () {
+    switchInstrument(this);
+  });
+  $(".pitch .up").on("click", function () {
+    pitchy(1);
+  });
+  $(".pitch .down").on("click", function () {
+    pitchy(0);
+  });
+  $(".switch .button").on("click", function () {
+    openInstrument($(this).data("instrument"));
+  });
+});
+
 window.onload = function () {
   openInstrument("keyboard");
 };
