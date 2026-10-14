@@ -13,12 +13,11 @@ $(document).ready(function () {
   if (sessionStorage.roomID && !sessionStorage.exited) {
     window.location.replace("./room/");
   }
-  const peerKey = $("meta[name='peerjs-key']").attr("content");
   let peer;
   if (sessionStorage.peerID) {
-    peer = new Peer(sessionStorage.peerID, { key: peerKey });
+    peer = new Peer(sessionStorage.peerID, peerOptions());
   } else {
-    peer = new Peer({ key: peerKey });
+    peer = new Peer(peerOptions());
   }
   peer.on("open", function (id) {
     sessionStorage.peerID = id;

@@ -5,6 +5,19 @@ if (!process.env.PEERJS_KEY) {
   process.exit(1);
 }
 
+if (process.env.PEERJS_SERVER) {
+  let url;
+  try {
+    url = new URL(process.env.PEERJS_SERVER);
+  } catch {
+    url = null;
+  }
+  if (!url || (url.protocol !== "http:" && url.protocol !== "https:")) {
+    console.error("FATAL: PEERJS_SERVER must be an http(s) URL");
+    process.exit(1);
+  }
+}
+
 if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
   console.error("FATAL: SESSION_SECRET must be set in .env (min 32 chars)");
   process.exit(1);

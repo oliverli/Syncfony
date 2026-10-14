@@ -7,6 +7,7 @@ router.get("/", (req, res) => {
   res.render("room", {
     layout: false,
     PEERJS_KEY: process.env.PEERJS_KEY,
+    PEERJS_SERVER: process.env.PEERJS_SERVER || "",
     csrfToken: res.locals.csrfToken,
   });
 });

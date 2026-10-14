@@ -34,6 +34,7 @@ module.exports = [
         ...globals.browser,
         $: "readonly",
         Peer: "readonly",
+        peerOptions: "readonly",
         playLocal: "readonly",
         drumLocal: "readonly",
         Synth: "readonly",

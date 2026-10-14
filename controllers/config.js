@@ -18,6 +18,17 @@ const dateFormat = new Intl.DateTimeFormat("en-GB", {
   second: "2-digit",
 });
 
+// Origins the PeerJS client signals through: the PeerServer named by
+// PEERJS_SERVER, or else the PeerJS cloud server that PeerJS 0.3 defaults to.
+function peerjsOrigins() {
+  if (!process.env.PEERJS_SERVER) {
+    return ["http://0.peerjs.com:9000", "ws://0.peerjs.com:9000"];
+  }
+  const url = new URL(process.env.PEERJS_SERVER);
+  const ws = url.protocol === "https:" ? "wss:" : "ws:";
+  return [url.origin, `${ws}//${url.host}`];
+}
+
 morgan.token("time", () => dateFormat.format(new Date()));
 
 const authLimiter = rateLimit({
@@ -36,11 +47,10 @@ module.exports = function (app) {
     helmet({
       contentSecurityPolicy: {
         directives: {
-          // PeerJS 0.3 signals through the PeerJS cloud server over plain http/ws.
-          "connect-src": ["'self'", "http://0.peerjs.com:9000", "ws://0.peerjs.com:9000"],
+          "connect-src": ["'self'", ...peerjsOrigins()],
           // audiosynth.js plays its generated notes from blob: URLs.
           "media-src": ["'self'", "blob:"],
-          // Upgrading would rewrite the PeerJS URLs to https/wss on port 9000.
+          // Upgrading would rewrite a plain http/ws PeerServer URL to https/wss.
           "upgrade-insecure-requests": null,
         },
       },

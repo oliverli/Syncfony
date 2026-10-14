@@ -37,10 +37,8 @@ function ghettoQuitHandler() {
 }
 
 $(document).ready(function () {
-  const peerKey = $("meta[name='peerjs-key']").attr("content");
-
   if (sessionStorage.peerID) {
-    peer = new Peer(sessionStorage.peerID, { key: peerKey });
+    peer = new Peer(sessionStorage.peerID, peerOptions());
   } else {
     window.location.replace("/");
   }
