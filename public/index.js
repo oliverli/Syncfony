@@ -2,6 +2,10 @@ window.getCsrfToken = function () {
   return $("meta[name='csrf-token']").attr("content");
 };
 
+function showError(xhr) {
+  alert((xhr.responseJSON && xhr.responseJSON.error) || "Something went wrong, please try again.");
+}
+
 $(document).ready(function () {
   if (sessionStorage.exited) {
     sessionStorage.removeItem("exited");
@@ -41,6 +45,7 @@ function createRoom() {
       sessionStorage.roomID = result.room;
       window.location.replace("./room/");
     },
+    error: showError,
   });
 }
 
@@ -62,5 +67,6 @@ function joinRoom() {
       sessionStorage.tempClientStore = JSON.stringify(result.clients);
       window.location.replace("./room/");
     },
+    error: showError,
   });
 }
